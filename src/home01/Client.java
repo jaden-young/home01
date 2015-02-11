@@ -19,7 +19,7 @@ public class Client {
         Scanner scanUser = new Scanner(System.in);
         Scanner scanFile = null;
         File inputFile = null;
-        ArrayList<TokenCheck> tokenCheckList = new ArrayList();
+        ArrayList<TokenCheck> unsortedList = new ArrayList();
         
         // prompt for a file to read from
         System.out.print("Enter a file to read from > ");
@@ -42,54 +42,28 @@ public class Client {
             String dataString = scanFile.nextLine();
             String delimiter = scanFile.nextLine();
             TokenCheck temp = new TokenCheck(dataString, delimiter);
-            tokenCheckList.add(temp);
+            unsortedList.add(temp);
         }
         
         // demonstrate constructors/methods with hardcoded values
         TokenCheck defaultDemo = new TokenCheck();
         defaultDemo.setDataString("Using$the$default$constructor");
         defaultDemo.setDelimiter("$");
-        tokenCheckList.add(defaultDemo);
+        unsortedList.add(defaultDemo);
         
         // demonstrate overloaded constructor with hardcoded values
         TokenCheck overloadedDemo = new TokenCheck("*Overloaded*constructor"
                 + "*demonstration", "*");
         
-        tokenCheckList.trimToSize();
-        for(TokenCheck current : tokenCheckList) {
-            System.out.println(current.toString());
+        unsortedList.trimToSize();
+        
+        int lastIndexChecked = 0;
+        ArrayList<TokenCheck> sortedList = new ArrayList(unsortedList.size());
+        for(int i = 1; i < unsortedList.size(); i++) {
+            
         }
         
-        ObjectOutputStream oos;
-        try {
-            oos = new ObjectOutputStream(new FileOutputStream("home01objects.txt"));
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.toString());
-        }
-        for(TokenCheck current : tokenCheckList) {
-            try {
-                oos.writeObject(current);
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-                System.out.println(ex.toString());
-            }
-        }
         
-        PrintWriter writer;
-        File home01 = new File("home01.txt");
-        try {
-            writer = new PrintWriter(home01);
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.toString());
-        }
-        
-        for(TokenCheck current : tokenCheckList) {
-            writer.write(current.getDataString() + "\n");
-            writer.write(current.getDelimiter() + "\n");
-            writer.write(current.getTokenType() + "\n");
-        }
         
         
         
